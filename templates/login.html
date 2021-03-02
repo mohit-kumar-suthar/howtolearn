@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    {% include 'header.html' %}
+    <main>
+
+        <div class="account">
+            <form method="POST">
+                {% csrf_token %}
+                <h3>Login</h3><hr>
+                <div class="alert alert-danger" role="alert">
+                    Email and Password invalid
+                    </div>
+                <div class="form-group">
+                    {{login_form.email}}
+                </div>
+                <div class="form-group">
+                    {{login_form.password}}
+                </div>
+                    <div class="account-btn">
+                        <input type="submit" value="Login" class="btn btn-primary">
+                    </div>
+                </form><hr>
+                <a href="{% url 'register' %}">
+                <div class="alert alert-secondary register-btn" role="alert">
+                Don't have an account ? <strong>Register</strong>
+                </div></a>
+                
+    </div>
+    
+    </main>
+{% endblock %}

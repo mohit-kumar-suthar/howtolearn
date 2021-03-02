@@ -1,0 +1,70 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');
+
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border;
+}
+
+body{
+    background: url("/static/img/body.png") 50% 0 no-repeat fixed;
+    background-size: 1600px 800px;
+    
+}
+
+.account{
+    background-color:rgb(255,255,255,0.7);
+    margin:auto;
+    width:400px;
+    padding:10px;
+    border-radius:10px;
+    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+    
+}
+
+.account h3{
+    font-family: 'Fira Sans', sans-serif;
+    font-size:30px;
+}
+
+.account input{
+    border-radius:10px;
+}
+
+
+
+.account-btn input{
+    background-color:#5E72EB;
+    border:none;
+}
+
+.account-btn input:hover{
+    background-color:#5E72EB;
+}
+
+.account-btn a{
+    float:right;
+    margin-right:20px;
+}
+
+.account a:link{
+    text-decoration:none;
+}
+
+.register-btn strong{
+    float:right;
+}
+
+.form_error li{
+    list-style:outside;
+    margin-bottom:-15px;
+    margin-left:10px;
+
+}
+
+@media screen and (max-width:1000px) {
+    .account{
+        width:350px;
+    }
+}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    {% include 'header.html' %}
+    <main>
+
+        <div class="account">
+            <form method="POST">
+                {% csrf_token %}
+                <h3>Forgot Password</h3><hr>
+                {% if forgot_form.errors %}
+                <div class="alert alert-danger form_error" role="alert">
+                    {{forgot_form.errors.email}}</div>
+                {% endif %}
+                <div class="form-group">
+                    {{forgot_form.email}}
+                </div>
+                    <div class="account-btn">
+                        <input type="submit" value="Submit" class="btn btn-primary">
+                    </div>
+                </form>            
+    </div>
+    
+    </main>
+{% endblock %}
