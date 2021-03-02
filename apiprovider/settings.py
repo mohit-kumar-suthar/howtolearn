@@ -28,6 +28,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['127.0.0.1:8000','howtolearn.herokuapp.com/']
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
