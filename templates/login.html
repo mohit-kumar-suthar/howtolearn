@@ -9,6 +9,13 @@
             <form method="POST">
                 {% csrf_token %}
                 <h3>Login</h3><hr>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{message}}
+                    </div>
+                {% endfor %}
+                {% endif %}
                 <div class="alert alert-danger" role="alert">
                     Email and Password invalid
                     </div>

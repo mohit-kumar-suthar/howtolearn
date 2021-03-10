@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'v$u@2!qnk1%2b-7r^!s*^(qz1vwvk^ab#s7i2jjb@ixthq9_%w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','howtolearn.herokuapp.com/']
+ALLOWED_HOSTS = ['127.0.0.1','howtolearn.herokuapp.com']
 
 
 
@@ -75,14 +75,13 @@ WSGI_APPLICATION = 'apiprovider.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-}
+}'''
 
-'''
 DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.mysql',
@@ -96,7 +95,6 @@ DATABASES = {
 }
 }
 }
-'''
 
 
 # Password validation
@@ -153,6 +151,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'teamfirecode.project@gmail.com'
 EMAIL_HOST_PASSWORD = 'team@firecode'
-EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 PASSWORD_RESET_TIMEOUT_DAYS = 1

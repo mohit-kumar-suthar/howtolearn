@@ -94,3 +94,34 @@ class forgot(forms.Form):
         if not user.is_active:
             raise ValidationError(_("please enter registered email"),code='invalid')
         return email
+
+
+class reset_password(forms.Form):
+    email=forms.EmailField(widget=forms.EmailInput(attrs={
+        'class':'form-control',
+        'autocomplete':'off',
+        'readonly':True,
+    }))
+    password=forms.CharField(widget=forms.PasswordInput(attrs={
+        'class':'form-control',
+        'placeholder':'New Password',
+        'autocomplete':'off',
+    }))
+    comfirm_password=forms.CharField(widget=forms.PasswordInput(attrs={
+        'class':'form-control',
+        'placeholder':'Confirm New Password',
+        'autocomplete':'off',
+    }))
+
+    def clean_confirm_password(self):
+        password = self.cleaned_data.get('password')
+        confirm_password = self.cleaned_data.get('confirm_password')
+        if(len(password)<=8 and len(confirm_password)<=8):
+            raise ValidationError(_("Password length must 8 "))
+        if re.search('[A-Z]', password)!=None and re.search('[0-9]', password)!=None and re.search('[^A-Za-z0-9]', password)!=None:
+            pass
+        else:
+            raise ValidationError(_("password must strong"),code='invalid')
+        if(password != confirm_password):
+            raise ValidationError(_("Password must match"),code='invalid')
+        return confirm_password

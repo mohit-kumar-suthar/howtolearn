@@ -9,6 +9,13 @@
             <form method="POST">
                 {% csrf_token %}
                 <h3>Forgot Password</h3><hr>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{message}}
+                    </div>
+                {% endfor %}
+                {% endif %}
                 {% if forgot_form.errors %}
                 <div class="alert alert-danger form_error" role="alert">
                     {{forgot_form.errors.email}}</div>

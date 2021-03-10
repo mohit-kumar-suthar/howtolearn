@@ -73,11 +73,12 @@
         font-size:30px;
         position:absolute;
         right:10px;
+        z-index: 100;
     }
 
     .nav-items{
         display:none;
-        margin-top:70px;
+        padding-top:70px;
         position:fixed;
         right:0;
         left:0;
@@ -85,7 +86,7 @@
         box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
         border-radius:0 0 10px 10px; 
         background:#FFF;
-        z-index:100;
+        z-index:2;
     }
 
 
