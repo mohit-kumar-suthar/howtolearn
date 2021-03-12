@@ -10,7 +10,7 @@
     height:70px;
     line-height: 70px;
     background-color:#FFF;
-    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     margin-bottom:70px;
 }
 
@@ -44,6 +44,9 @@
     font-size:20px;
 }
 
+.social{
+    display:none;
+}
 
 .items{
     margin-right:50px;
@@ -78,14 +81,14 @@
 
     .nav-items{
         display:none;
-        padding-top:70px;
+        padding-top:10px;
         position:fixed;
         right:0;
         left:0;
         text-align: center;
-        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
         border-radius:0 0 10px 10px; 
-        background:#FFF;
+        background:rgb(255, 255, 255,0.9);
         z-index:2;
     }
 
@@ -107,6 +110,12 @@
         margin-left:10px;
     }
 
+    .social{
+        display:inline;
+        font-size:25px;
+    }
 
-
+    .social a{
+        margin:0 15px 0 15px;
+    }
 }

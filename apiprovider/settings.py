@@ -25,8 +25,7 @@ SECRET_KEY = 'v$u@2!qnk1%2b-7r^!s*^(qz1vwvk^ab#s7i2jjb@ixthq9_%w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','howtolearn.herokuapp.com']
-
+ALLOWED_HOSTS = ['127.0.0.1','howtolearn.herokuapp.com','3fd34be77c62.ngrok.io']
 
 
 # Application definition
@@ -39,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    'background_task'
 ]
 
 MIDDLEWARE = [
@@ -147,9 +147,8 @@ MEDIA_URL = 'media/'
 
 EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'teamfirecode.project@gmail.com'
 EMAIL_HOST_PASSWORD = 'team@firecode'
-EMAIL_USE_SSL = False
+EMAIL_USE_TLS = True
 PASSWORD_RESET_TIMEOUT_DAYS = 1

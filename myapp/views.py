@@ -7,6 +7,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib import messages
 from .send_email import sender
+from background_task import background
 
 # Create your views here.
 
@@ -30,15 +31,23 @@ def register_view(request):
             link = reverse('activate',kwargs={'uidb64':uidb64,
             'token':generate_token.make_token(user)})
             activate_link = 'http://'+domain+link
-            email = sender(email,first_name,activate_link)
+            email_obj = sender(email,first_name,activate_link)
             try:
-                email.send()
+                email_obj.send()
                 user.save()
+                notify_user(email)
                 messages.success(request, 'Activation link sent to your email address')
-            except:
-                messages.success(request, 'Unable to send Activation link')
+            except Exception as e:
+                user.delete()
+                messages.success(request,e)
             return redirect('register')
     return render(request,'index.html',{'register_form':form})
+
+@background(schedule=30)
+def notify_user(email):
+    user=User.objects.filter(username=email)
+    if not user.is_active:
+        user.delete()
 
 def login_view(request):
     form=login()
@@ -79,8 +88,9 @@ def reset_password_view(request,uidb64,token):
                     if form.is_valid():
                         user.set_password(form.cleaned_data['password'])
                         user.save()
+
                         messages.success(request,'Successfully reset your password')
-                        return ('login')
+                        
                     else:
                         return render(request, 'reset_password.html',{'reset_form':form})
                 else:
@@ -92,3 +102,6 @@ def reset_password_view(request,uidb64,token):
             return HttpResponse('invaild')
     except:
         return HttpResponse('invaild')
+
+def home_view(request):
+    return render(request, 'home.html')
