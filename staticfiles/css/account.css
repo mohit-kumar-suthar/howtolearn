@@ -8,20 +8,22 @@
 }
 
 body{
-    background: url("/static/img/body.png") 50% 0 no-repeat fixed;
+    background: url("/static/img/body.jpg") 50% 0 no-repeat fixed;
     background-size: 1600px 800px;
-    
 }
 
 .account{
-    background-color:rgb(255,255,255,0.7);
+    background-color:rgb(255,255,255,0.8);
     margin:auto;
     width:400px;
     padding:10px;
     border-radius:10px;
+    margin-top:150px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     
 }
+
+
 
 .account h3{
     font-family: 'Fira Sans', sans-serif;
@@ -31,8 +33,6 @@ body{
 .account input{
     border-radius:10px;
 }
-
-
 
 .account-btn input{
     background-color:#5E72EB;
@@ -61,6 +61,10 @@ body{
     margin-bottom:-15px;
     margin-left:10px;
 
+}
+
+main{
+    margin-bottom:70px;
 }
 
 @media screen and (max-width:1000px) {

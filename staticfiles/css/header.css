@@ -10,8 +10,15 @@
     height:70px;
     line-height: 70px;
     background-color:#FFF;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    margin-bottom:70px;
+    position:fixed;
+    top:0;
+    z-index:9999;
+    width:100%;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+main{
+    margin-top:70px;
 }
 
 .header a:link{
@@ -69,6 +76,7 @@
 .menu{
     display:none;
 }
+
 
 @media screen and (max-width:1000px) {
     .menu{
