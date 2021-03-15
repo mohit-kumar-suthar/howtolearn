@@ -8,6 +8,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.contrib import messages
 from .send_email import sender
 from background_task import background
+from django.utils import timezone
 
 # Create your views here.
 
@@ -24,6 +25,7 @@ def register_view(request):
                 first_name = first_name,
                 last_name = last_name,
                 password = form.cleaned_data['password'],
+                is_active = False,
             )
             user.is_active = False
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
@@ -31,7 +33,7 @@ def register_view(request):
             link = reverse('activate',kwargs={'uidb64':uidb64,
             'token':generate_token.make_token(user)})
             activate_link = 'http://'+domain+link
-            email_obj = sender(email,first_name,activate_link)
+            email_obj = sender('register_user',email,first_name,activate_link)
             try:
                 email_obj.send()
                 user.save()
@@ -45,7 +47,7 @@ def register_view(request):
 
 @background(schedule=30)
 def notify_user(email):
-    user=User.objects.filter(username=email)
+    user=User.objects.get(username=email)
     if not user.is_active:
         user.delete()
 
@@ -59,19 +61,33 @@ def activate_view(request,uidb64,token):
         user = User.objects.get(pk=uidb64)
         if not user.is_active and generate_token.check_token(user,token):
             user.is_active = True
+            user.last_login = timezone.now()
             user.save()
             messages.success(request,'Successfully Activate your account')
             return redirect('login')
         messages.warning(request,'Link expired')
         return redirect('register')
     except:
-        return HttpResponse('invaild')
+        messages.warning(request,'Link expired')
+        return redirect('register')
 
 def forgot_view(request):
     form=forgot()
     if request.method == 'POST':
         form=forgot(request.POST)
         if form.is_valid():
+            email=form.cleaned_data['email']
+            user = User.objects.get(username=email)
+            uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+            domain = get_current_site(request).domain
+            link = reverse('reset_password',kwargs={'uidb64':uidb64,
+            'token':reset_token.make_token(user)})
+            reset_password_link = 'http://'+domain+link
+            email_obj = sender('reset_password',email,user.first_name,reset_password_link)
+            try:
+                email_obj.send()
+            except:
+                pass
             messages.success(request,'Successfully reset link send to your email')
             return redirect('forgot')
     return render(request,'forgot.html',{'forgot_form':form})
@@ -80,7 +96,7 @@ def reset_password_view(request,uidb64,token):
     try:
         uidb64_reset= urlsafe_base64_decode(force_text(uidb64))
         user = User.objects.get(pk=uidb64_reset)
-        form = reset_password(initial={'email':user.email})
+        form = reset_password(initial={'email':user})
         if user.is_active:
             if request.method == 'POST':
                 form = reset_password(request.POST)
@@ -88,9 +104,8 @@ def reset_password_view(request,uidb64,token):
                     if form.is_valid():
                         user.set_password(form.cleaned_data['password'])
                         user.save()
-
                         messages.success(request,'Successfully reset your password')
-                        
+                        return redirect('login')
                     else:
                         return render(request, 'reset_password.html',{'reset_form':form})
                 else:

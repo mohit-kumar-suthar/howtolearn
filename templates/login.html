@@ -24,6 +24,7 @@
                 </div>
                     <div class="account-btn">
                         <input type="submit" value="Login" class="btn btn-primary">
+                        <a href="{% url 'forgot' %}">forgot password</a>
                     </div>
                 </form><hr>
                 <a href="{% url 'register' %}">
@@ -34,4 +35,5 @@
     </div>
     
     </main>
+    {% include 'footer.html' %}
 {% endblock %}

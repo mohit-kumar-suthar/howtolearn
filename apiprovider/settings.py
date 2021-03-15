@@ -25,7 +25,7 @@ SECRET_KEY = 'v$u@2!qnk1%2b-7r^!s*^(qz1vwvk^ab#s7i2jjb@ixthq9_%w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','howtolearn.herokuapp.com','3fd34be77c62.ngrok.io']
+ALLOWED_HOSTS = ['127.0.0.1','howtolearn.herokuapp.com','e7264dccf343.ngrok.io']
 
 
 # Application definition
@@ -74,15 +74,15 @@ WSGI_APPLICATION = 'apiprovider.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-'''DATABASES = {
+'''
+DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.mysql',
 'NAME': 'api_data',
@@ -95,7 +95,7 @@ DATABASES = {
 }
 }
 }
-'''
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

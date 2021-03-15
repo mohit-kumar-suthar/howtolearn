@@ -1,23 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
-
-
-
-.head-title{
-    color:white;
-    font-family: 'RocknRoll One', sans-serif;
-}
-
-.head-title h1{
-    text-align:center;
-    font-size:50px;
-    text-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+.api-title i{
+    color:#5E72EB;
 }
 
 
-
-@media screen and (max-width:1000px) {
-    .head-title h1{
-        font-size:40px;
-        text-align: center;
-    }
+.accordion-item{
+    background-color:rgb(255, 255, 255,0.5)
 }
+

@@ -10,16 +10,18 @@
                 <h3>Register</h3><hr>
                 {% if messages %}
                 {% for message in messages %}
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-success alert-dismissible fade show " role="alert">
                     {{message}}
-                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 {% endfor %}
                 {% endif %}
                 {%if register_form.errors%}
-                <div class="alert alert-danger form_error" role="alert">
+                <div class="alert alert-danger alert-dismissible fade show from_error" role="alert">
                     {{register_form.errors.email}}
                     {{register_form.errors.confirm_password}}
-                </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
                 {% endif %}
                 <div class="form-group">
                     {{register_form.first_name}}
@@ -38,10 +40,9 @@
                 </div>
                     <div class="account-btn">
                         <input type="submit" value="Register" class="btn btn-primary">
-                        <a href="{% url 'forgot' %}">forgot password</a>
                     </div>
                 </form>   
     </div>
     </main>
-  
+    {% include 'footer.html' %}
 {% endblock %}
