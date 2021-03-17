@@ -12,7 +12,11 @@
                 </nav>
             </div>
             <div class="login-btn">
+                {% if username %}
+                <a href="#">Hii {{username}}</i></a>
+                {% else %}
                 <a href="{% url 'login' %}">Login</a>
+                {% endif %}
             </div>
             <div class="social">
                 <a href="#"><i class='bx bxl-facebook' ></i></a>

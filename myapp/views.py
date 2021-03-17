@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect,reverse
 from django.contrib.auth.models import User
 from .forms import register,login,forgot,reset_password
+from django.contrib.auth import authenticate,login as Login,logout
 from .utils import generate_token,reset_token
 from django.utils.encoding import force_bytes,force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -53,6 +54,18 @@ def notify_user(email):
 
 def login_view(request):
     form=login()
+    if request.method == 'POST':
+        form = login(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            user = authenticate(request,username=email,password=password)
+            if user is not None:
+                Login(request,user)
+                return redirect('home')
+            else:
+                messages.error(request, 'username or password wrong', extra_tags='login')
+                return redirect('login')
     return render(request,'login.html',{'login_form':form})
 
 def activate_view(request,uidb64,token):
