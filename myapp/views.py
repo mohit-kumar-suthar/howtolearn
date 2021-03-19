@@ -10,6 +10,7 @@ from django.contrib import messages
 from .send_email import sender
 from background_task import background
 from django.utils import timezone
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -133,7 +134,12 @@ def reset_password_view(request,uidb64,token):
         messages.error(request,'Link Expired')
         return redirect('forgot')
 
-@login_required(redirect_field_name='home', login_url='login')
 def home_view(request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % (reverse('login'), request.path))
     first_name = request.user.first_name
     return render(request, 'home.html',{'first_name':first_name})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
