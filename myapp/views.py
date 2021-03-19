@@ -38,7 +38,7 @@ def register_view(request):
             try:
                 email_obj.send()
                 user.save()
-                notify_user(email)
+                notify_user(email,'register')
                 messages.success(request, 'Activation link sent to your email address')
             except Exception as e:
                 user.delete()
@@ -47,15 +47,19 @@ def register_view(request):
     return render(request,'index.html',{'register_form':form})
 
 @background(schedule=30)
-def notify_user(email):
+def notify_user(email,action):
     user=User.objects.get(username=email)
-    if not user.is_active:
+    if not user.is_active and action=="register":
         user.delete()
+    if user.is_active and action=="reset":
+        user.last_login=timezone.now()
+        user.save()
 
 def login_view(request):
     form=login()
     if request.method == 'POST':
-        form = login(request.POST)
+        form = login(request.POST)  
+        
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
@@ -99,6 +103,7 @@ def forgot_view(request):
             email_obj = sender('reset_password',email,user.first_name,reset_password_link)
             try:
                 email_obj.send()
+                notify_user(email,'reset')
             except:
                 pass
             messages.success(request,'Successfully reset link send to your email')
@@ -110,26 +115,22 @@ def reset_password_view(request,uidb64,token):
         uidb64_reset= urlsafe_base64_decode(force_text(uidb64))
         user = User.objects.get(pk=uidb64_reset)
         form = reset_password(initial={'email':user})
-        if user.is_active:
+        if user is not None and reset_token.check_token(user,token):
             if request.method == 'POST':
-                form = reset_password(request.POST)
-                if reset_token.check_token(user,token):
-                    if form.is_valid():
-                        user.set_password(form.cleaned_data['password'])
-                        user.save()
-                        messages.success(request,'Successfully reset your password')
-                        return redirect('login')
-                    else:
-                        return render(request, 'reset_password.html',{'reset_form':form})
-                else:
-                    messages.warning(request,'Link expired')
-                    return redirect('reset_password')
-            else:
-                return render(request, 'reset_password.html',{'reset_form':form})
+                form=reset_password(request.POST)
+                if form.is_valid():
+                    user.set_password(form.cleaned_data['password'])
+                    user.save()
+                    messages.success(request,'sucessfully reset your password')
+                    return redirect('login')
+            return render(request,'reset_password.html',{'reset_form':form})
+
         else:
-            return HttpResponse('invaild')
+            messages.error(request,'Link Expired')
+            return redirect('forgot')
     except:
-        return HttpResponse('invaild')
+        messages.error(request,'Link Expired')
+        return redirect('forgot')
 
 def home_view(request):
     return render(request, 'home.html')
