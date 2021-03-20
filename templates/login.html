@@ -9,17 +9,7 @@
             <form method="POST">
                 {% csrf_token %}
                 <h3>Login</h3><hr>
-                {%for message in messages %}
-                {%if "login" in message.tags %}
-                    <div class="alert alert-danger" role="alert">
-                        <li>{{ message}}</li>
-                    </div>
-                {% else %}
-                    <div class="alert alert-success" role="alert">
-                        <li>{{ message}}</li>
-                    </div>
-                {% endif %}
-                {%endfor%}
+                {% include 'messages.html' %}
                 <div class="form-group">
                     {{login_form.email}}
                 </div>

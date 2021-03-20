@@ -6,7 +6,7 @@
             <div class="items">
                 <nav>
                     <a href="{% url 'home' %}">Home</a>
-                    <a href="#">APIs</a>
+                    <a href="{% url 'apis' %}">APIs</a>
                     <a href="#">Learn</a>
                     <a href="#">Contact us</a>
                 </nav>
@@ -17,10 +17,9 @@
                 Hii {{first_name}}
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Profile Settings</a>
-                <a class="dropdown-item" href="#">API Settings</a>
+                <a class="dropdown-item btn" href="{% url 'settings' %}">Settings</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'logout'%}">Logout</a>
+                <a class="dropdown-item btn" href="{% url 'logout'%}">Logout</a>
               </div>
             </div>
             {% else %}

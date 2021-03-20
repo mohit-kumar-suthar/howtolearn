@@ -42,9 +42,9 @@ def register_view(request):
                 user.save()
                 notify_user(email,'register')
                 messages.success(request, 'Activation link sent to your email address')
-            except Exception as e:
+            except:
                 user.delete()
-                messages.success(request,e)
+                messages.success(request,'Please Connect to internet')
             return redirect('register')
     return render(request,'index.html',{'register_form':form})
 
@@ -84,10 +84,10 @@ def activate_view(request,uidb64,token):
             user.save()
             messages.success(request,'Successfully Activate your account')
             return redirect('login')
-        messages.warning(request,'Link expired')
+        messages.error(request,'Link expired')
         return redirect('register')
     except:
-        messages.warning(request,'Link expired')
+        messages.error(request,'Link expired')
         return redirect('register')
 
 def forgot_view(request):
@@ -106,9 +106,9 @@ def forgot_view(request):
             try:
                 email_obj.send()
                 notify_user(email,'reset')
+                messages.success(request,'Successfully reset link send to your email')
             except:
-                pass
-            messages.success(request,'Successfully reset link send to your email')
+                messages.error(request,'Please Connect to internet')
             return redirect('forgot')
     return render(request,'forgot.html',{'forgot_form':form})
 
@@ -134,12 +134,27 @@ def reset_password_view(request,uidb64,token):
         messages.error(request,'Link Expired')
         return redirect('forgot')
 
-def home_view(request):
+def apis_view(request):
     if not request.user.is_authenticated:
+        messages.error(request,'Content not accessible plz login first')
         return redirect('%s?next=%s' % (reverse('login'), request.path))
     first_name = request.user.first_name
-    return render(request, 'home.html',{'first_name':first_name})
+    return render(request, 'apis.html',{'first_name':first_name})
 
 def logout_view(request):
     logout(request)
+    messages.info(request,'Logged out')
     return redirect('login')
+
+def home_view(request):
+    if request.user.is_authenticated:
+        first_name = request.user.first_name
+        return render(request, 'home.html',{'first_name':first_name})
+    return render(request, 'home.html')
+
+def settings_view(request):
+    if not request.user.is_authenticated:
+        messages.error(request,'Content not accessible plz login first')
+        return redirect('%s?next=%s' % (reverse('login'), request.path))
+    first_name = request.user.first_name
+    return render(request, 'user_setting.html',{'first_name':first_name})

@@ -9,13 +9,7 @@
             <form method="POST">
                 {% csrf_token %}
                 <h3>Forgot Password</h3><hr>
-                {% if messages %}
-                {% for message in messages %}
-                <div class="alert alert-success" role="alert">
-                    {{message}}
-                    </div>
-                {% endfor %}
-                {% endif %}
+                {% include 'messages.html' %}
                 {% if forgot_form.errors %}
                 <div class="alert alert-danger form_error" role="alert">
                     {{forgot_form.errors.email}}</div>
@@ -24,11 +18,10 @@
                     {{forgot_form.email}}
                 </div>
                     <div class="account-btn">
-                        <input type="submit" value="Submit" class="btn btn-primary">
+                        <input  type="submit" value="Submit" class="btn btn-primary">
                     </div>
                 </form>            
-    </div>
-    
+            </div>
     </main>
     {% include 'footer.html' %}
 {% endblock %}

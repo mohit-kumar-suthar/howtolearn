@@ -21,5 +21,11 @@
 </head>
 <body>
     {% block body %} {% endblock %}   
+    <script>
+        function loading() {
+            document.getElementById('load').disabled = true;
+            document.getElementById('load').value = 'Wait..';
+        }
+        </script>
 </body>
 </html>
