@@ -25,7 +25,7 @@ SECRET_KEY = 'v$u@2!qnk1%2b-7r^!s*^(qz1vwvk^ab#s7i2jjb@ixthq9_%w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','howtolearn.herokuapp.com','80a4dd5e8eea.ngrok.io']
+ALLOWED_HOSTS = ['127.0.0.1','howtolearn.herokuapp.com','fe6f49c611ab.ngrok.io']
 
 
 # Application definition
@@ -85,11 +85,11 @@ DATABASES = {
 DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.mysql',
-'NAME': 'api_data',
+'NAME': 'how_to_learn',
 'USER': 'root',
-'PASSWORD':'',
+'PASSWORD':'2807',
 'HOST': '127.0.0.1',
-'PORT':'3306',
+'PORT':'3307',
 'OPTIONS': {
 'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
 }

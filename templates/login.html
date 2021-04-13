@@ -10,6 +10,11 @@
                 {% csrf_token %}
                 <h3>Login</h3><hr>
                 {% include 'messages.html' %}
+                {% if login_form.errors %}
+                <div class="alert alert-danger form_error" role="alert">
+                    {{login_form.errors.password}}
+                    </div>
+                {% endif %}
                 <div class="form-group">
                     {{login_form.email}}
                 </div>

@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect,reverse
 from django.contrib.auth.models import User
-from .forms import register,login,forgot,reset_password
+from .forms import register,login,forgot,reset_password,user_setting
 from django.contrib.auth import authenticate,login as Login,logout
 from .utils import generate_token,reset_token
 from django.utils.encoding import force_bytes,force_text
@@ -57,21 +57,23 @@ def notify_user(email,action):
         user.last_login=timezone.now()
         user.save()
 
+
 def login_view(request):
     form=login()
     if request.method == 'POST':
-        form = login(request.POST)  
-        
-        if form.is_valid():
+        form = login(request.POST)   
+        if form.is_valid():  
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             user = authenticate(request,username=email,password=password)
+            if not User.objects.filter(username=email).exists():
+                messages.error(request, 'The user does not exist')
+                return redirect('login')
             if user is not None:
                 Login(request,user)
                 return redirect('home')
-            else:
-                messages.error(request, 'username or password wrong', extra_tags='login')
-                return redirect('login')
+            messages.error(request, 'Incorrect password. Please try again!')
+            return redirect('login')
     return render(request,'login.html',{'login_form':form})
 
 def activate_view(request,uidb64,token):
@@ -156,5 +158,26 @@ def settings_view(request):
     if not request.user.is_authenticated:
         messages.error(request,'Content not accessible plz login first')
         return redirect('%s?next=%s' % (reverse('login'), request.path))
+    user = request.user
+    form = user_setting(initial={'email':user,'first_name':user.first_name,'last_name':user.last_name})
     first_name = request.user.first_name
-    return render(request, 'user_setting.html',{'first_name':first_name})
+    last_name = request.user.last_name
+    if request.method == 'POST':
+        form = user_setting(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['delete_account']:
+                user.delete()
+                messages.success(request,'account deleted.')
+                email_obj = sender('delete_user',user.username,user.first_name)
+                email_obj.send()
+                return redirect('login')
+            password=form.cleaned_data['new_password']
+            if password:
+                user.set_password(password)
+            user.first_name = form.cleaned_data['first_name']
+            
+            user.last_name = form.cleaned_data['last_name']
+            user.save()
+            messages.success(request,'Changes Saved Successfully.')
+            return redirect('settings')
+    return render(request, 'user_setting.html',{'first_name':first_name,'settings_form':form})

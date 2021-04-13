@@ -11,13 +11,14 @@
                     <a href="#">Contact us</a>
                 </nav>
             </div>
+            
             {% if first_name %}
             <div class="dropdown">
               <a class="dropdown-toggle text-decoration-none" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Hii {{first_name}}
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item btn" href="{% url 'settings' %}">Settings</a>
+                <a class="dropdown-item btn" href="{% url 'settings' %}">Edit Profile</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item btn" href="{% url 'logout'%}">Logout</a>
               </div>

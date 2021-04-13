@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.setting-box{
+    margin-top:150px;
+    margin:auto;
+    width:800px;
+    background-color:rgb(255,255,255,0.8);
+    padding:10px;
+    border-radius:10px;
+    margin-top:150px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.setting-box input{
+    border-radius:10px;
+}
+
+.setting-box a{
+    border-radius:10px;
+}
+
+
+.setting-box h3{
+    font-family: 'Fira Sans', sans-serif;
+    font-size:30px;
+}
+
+
+@media screen and (max-width:1000px) {
+    .setting-box{
+        width:350px;
+    }
+}

@@ -2,14 +2,70 @@
 {% block title %}User Settings{% endblock %}
 
 {% block body %}
+<main>
     {% include 'header.html' %}
-     <div class="container">
-         <div class="col-sm-5 account">
-            Profile setting
+      <div class="container">
+         <div class="setting-box">
+         <form method="POST">
+            {% csrf_token %}
+            <h3>Edit Profile</h3><hr>
+            {% include 'messages.html' %}
+            {% if settings_form.errors %}
+            <div class="alert alert-danger alert-dismissible form_error" role="alert">
+               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+               {{settings_form.errors.confirm_new_password}}
+               </div>
+            {% endif %}
+         <div class="row">
+            <div class="col-sm-6">
+               <div class="alert alert-success" role="alert">
+               <div class="form-group">
+                  <small>Change your full name.</small>
+                  {{settings_form.first_name}}
+               </div>
+               <div class="form-group">
+                  {{settings_form.last_name}}
+               </div>
+            </div>
+               <div class="form-group">
+                  <div class="alert alert-info" role="alert">
+                  <small>Your registered email is not editable.</small>
+                  {{settings_form.email}}
+                  </div>
+               </div>
+            </div>
+            <div class="col-sm-6">
+               <div class="alert alert-secondary" role="alert">
+               <div class="form-group">
+                  <small>Change your current password. (optional)</small>
+                  {{settings_form.new_password}}
+               </div>
+               <div class="form-group">
+                  {{settings_form.confirm_new_password}}
+               </div>
+            </div>
+               <div class="form-group">
+                  <div class="alert alert-warning" role="alert">
+                     <small>Use your password to make every changes.</small>
+                  {{settings_form.old_password}}
+                  </div>
+               </div>
+            </div>
          </div>
-         <div class="col-sm-5 account">
-            Api settings
-         </div>
-     </div>
+         <div class="account-btn">
+            <input type="submit" value="Save" class="btn btn-primary">
+            <a><div class="form-check">
+              {{settings_form.delete_account}}
+               <label class="form-check-label" for="flexCheckDefault">
+                Want to delete this account ?
+               </label>
+             </div></a>
+        </div>
+      </form>
+      </div>
+      </div>
+   </main>
      {% include 'footer.html' %}
 {% endblock %}
