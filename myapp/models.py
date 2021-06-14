@@ -9,3 +9,4 @@ class access_key(models.Model):
     def save(self, *args, **kwargs):
         self.key = uuid.uuid4().hex[:16].upper()
         super(access_key, self).save(*args, **kwargs)
+
