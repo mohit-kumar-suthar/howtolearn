@@ -8,7 +8,9 @@
         <div class="container">
           <h1 class="display-6">Hello < {% if first_name %}{{first_name}} {% else %} Developer {% endif %} > ! </h1>
           <p class="lead">We provide best API for <strong>"Easy Development"</strong></p>
+          {% if first_name %}Your API Access Key is <kbd><strong>{{access_key}}</strong></kbd>{%endif %}
         </div>
+
     </div>
     <div class="accordion api-title" id="accordionExample">
         <div class="accordion-item">

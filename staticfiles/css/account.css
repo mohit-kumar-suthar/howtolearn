@@ -62,10 +62,10 @@ body{
     margin-left:10px;
 
 }
-
 main{
     margin-bottom:70px;
 }
+
 
 @media screen and (max-width:1000px) {
     .account{

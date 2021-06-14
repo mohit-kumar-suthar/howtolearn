@@ -12,6 +12,8 @@ from background_task import background
 from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from .models import access_key
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 
@@ -24,7 +26,7 @@ def register_view(request):
             last_name=form.cleaned_data['last_name'].capitalize()
             email=form.cleaned_data['email']
             user = User.objects.create_user(
-                username = email, 
+                username = email,
                 first_name = first_name,
                 last_name = last_name,
                 password = form.cleaned_data['password'],
@@ -61,8 +63,8 @@ def notify_user(email,action):
 def login_view(request):
     form=login()
     if request.method == 'POST':
-        form = login(request.POST)   
-        if form.is_valid():  
+        form = login(request.POST)
+        if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             user = authenticate(request,username=email,password=password)
@@ -84,6 +86,8 @@ def activate_view(request,uidb64,token):
             user.is_active = True
             user.last_login = timezone.now()
             user.save()
+            a_key = access_key(user=user)
+            a_key.save()
             messages.success(request,'Successfully Activate your account')
             return redirect('login')
         messages.error(request,'Link expired')
@@ -136,12 +140,12 @@ def reset_password_view(request,uidb64,token):
         messages.error(request,'Link Expired')
         return redirect('forgot')
 
-def apis_view(request):
+def chat_view(request):
     if not request.user.is_authenticated:
         messages.error(request,'Content not accessible plz login first')
         return redirect('%s?next=%s' % (reverse('login'), request.path))
     first_name = request.user.first_name
-    return render(request, 'apis.html',{'first_name':first_name})
+    return render(request, 'chat.html',{'first_name':first_name})
 
 def logout_view(request):
     logout(request)
@@ -151,7 +155,8 @@ def logout_view(request):
 def home_view(request):
     if request.user.is_authenticated:
         first_name = request.user.first_name
-        return render(request, 'home.html',{'first_name':first_name})
+        a_key  = access_key.objects.get(user=request.user)
+        return render(request, 'home.html',{'first_name':first_name,'access_key':a_key.key})
     return render(request, 'home.html')
 
 def settings_view(request):
@@ -161,7 +166,6 @@ def settings_view(request):
     user = request.user
     form = user_setting(initial={'email':user,'first_name':user.first_name,'last_name':user.last_name})
     first_name = request.user.first_name
-    last_name = request.user.last_name
     if request.method == 'POST':
         form = user_setting(request.POST)
         if form.is_valid():
@@ -175,7 +179,6 @@ def settings_view(request):
             if password:
                 user.set_password(password)
             user.first_name = form.cleaned_data['first_name']
-            
             user.last_name = form.cleaned_data['last_name']
             user.save()
             messages.success(request,'Changes Saved Successfully.')

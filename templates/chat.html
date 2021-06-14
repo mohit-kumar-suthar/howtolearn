@@ -1,32 +1,38 @@
 {% extends 'base.html' %}
-{% block title %}Forgot password{% endblock %}
+{% block title %}chat appliction{% endblock %}
 
 {% block body %}
     {% include 'header.html' %}
-        <div class="alert alert-success alert-dismissible fade show chat-box" role="alert">
+        <div class="alert alert-light alert-dismissible fade show chat-box" role="alert">
             <strong>Mohit Kumar Suthar</strong>
             <span style="float:right;" class="badge rounded-pill bg-info">2</span>
             <a href="#" style="float:right;" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i  style="font-size:30px;" class='bx bxs-message-square-dots'></i></a>
               
   <!-- Modal -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-scrollable model-box">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">Mohit</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ...
+          <div style="float:left;" class="alert alert-primary" role="alert">
+           hii
+          </div><br><br>
+          <div style="float:right;" class="alert alert-success" role="alert">
+            hii
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Understood</button>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Message" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <button class="btn btn-outline-primary" type="button" id="button-addon2">Send</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
         </div>
-
      {% include 'footer.html' %}
 {% endblock %}
