@@ -44,9 +44,9 @@ def register_view(request):
                 user.save()
                 notify_user(email,'register')
                 messages.success(request, 'Activation link sent to your email address')
-            except:
+            except Exception as e:
                 user.delete()
-                messages.success(request,'Please Connect to internet')
+                messages.success(request,e)
             return redirect('register')
     return render(request,'index.html',{'register_form':form})
 
@@ -113,8 +113,8 @@ def forgot_view(request):
                 email_obj.send()
                 notify_user(email,'reset')
                 messages.success(request,'Successfully reset link send to your email')
-            except Exception as e:
-                messages.error(request,e)
+            except:
+                messages.error(request,'Please Connect to internet')
             return redirect('forgot')
     return render(request,'forgot.html',{'forgot_form':form})
 
