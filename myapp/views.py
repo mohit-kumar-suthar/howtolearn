@@ -113,8 +113,8 @@ def forgot_view(request):
                 email_obj.send()
                 notify_user(email,'reset')
                 messages.success(request,'Successfully reset link send to your email')
-            except:
-                messages.error(request,'Please Connect to internet')
+            except Exception as e:
+                messages.error(request,e)
             return redirect('forgot')
     return render(request,'forgot.html',{'forgot_form':form})
 
