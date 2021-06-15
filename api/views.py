@@ -44,7 +44,7 @@ def register_with_otp(request,pk=None):
             request.session.set_expiry(60)
             email_obj = sender('otp',data['email'],data['first_name'],rand_otp)
             email_obj.send()
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(data={'action':'otp send successfully'},status=status.HTTP_201_CREATED)
         return Response(data=serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["GET","POST"])
