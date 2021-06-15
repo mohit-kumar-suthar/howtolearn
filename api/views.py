@@ -21,7 +21,7 @@ def api_overview(request):
         'login api':'/api/login'}
         return Response(data)
 
-@csrf_protect
+
 @api_view(["POST","DELETE"])
 def register_with_otp(request,pk=None):
     if pk != None:
