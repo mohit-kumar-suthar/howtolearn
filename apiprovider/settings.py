@@ -157,8 +157,8 @@ MEDIA_URL = 'media/'
 EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'teamfirecode.project@gmail.com'
-EMAIL_HOST_PASSWORD = 'team@firecode'
+EMAIL_HOST_USER = 'test.mail.firecode@gmail.com'
+EMAIL_HOST_PASSWORD = 'test@mail@mk'
 EMAIL_USE_TLS = True
 PASSWORD_RESET_TIMEOUT_DAYS = 1
 

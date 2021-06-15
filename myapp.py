@@ -12,7 +12,7 @@ data = {
     "access_key":"8849E6DDCD934BF2"
 }
 
-
+json_data  = json.dumps(data)
 r = requests.post(url=URL,data=data)
 
 data =  r.json()
