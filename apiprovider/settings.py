@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'v$u@2!qnk1%2b-7r^!s*^(qz1vwvk^ab#s7i2jjb@ixthq9_%w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','easybuilds.herokuapp.com','0bf058646818.ngrok.io']
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 
 
 # Application definition
@@ -145,10 +145,8 @@ USE_TZ = True
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-        os.path.join(BASE_DIR,'static')
-]
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = 'media/'
