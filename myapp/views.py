@@ -50,7 +50,7 @@ def register_view(request):
             return redirect('register')
     return render(request,'index.html',{'register_form':form})
 
-@background(schedule=30)
+@background(schedule=500)
 def notify_user(email,action):
     user=User.objects.get(username=email)
     if not user.is_active and action=="register":

@@ -25,7 +25,7 @@ SECRET_KEY = 'v$u@2!qnk1%2b-7r^!s*^(qz1vwvk^ab#s7i2jjb@ixthq9_%w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -153,10 +153,10 @@ MEDIA_URL = 'media/'
 
 
 EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp-mail.outlook.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'test.mail.firecode@gmail.com'
-EMAIL_HOST_PASSWORD = 'test@mail@mk'
+EMAIL_HOST_USER = 'mikksuthar@hotmail.com'
+EMAIL_HOST_PASSWORD = 'Mikk@Nikk'
 EMAIL_USE_TLS = True
 PASSWORD_RESET_TIMEOUT_DAYS = 1
 

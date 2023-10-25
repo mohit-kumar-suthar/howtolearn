@@ -25,7 +25,7 @@ def sender(action,email,name,activate_link=None):
     email = EmailMessage(
         subject,
         message,
-        'teamfirecode.project@gmail.com',
+        'mikksuthar@hotmail.com',
         [email],
     )
     email.content_subtype='html'
