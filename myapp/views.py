@@ -37,7 +37,7 @@ def register_view(request):
             domain = get_current_site(request).domain
             link = reverse('activate',kwargs={'uidb64':uidb64,
             'token':generate_token.make_token(user)})
-            activate_link = 'http://'+domain+link
+            activate_link = 'https://reimagined-carnival-4wpp99qp76xfqwxq-8000.app.github.dev/'+link
             email_obj = sender('register_user',email,first_name,activate_link)
             try:
                 email_obj.send()
