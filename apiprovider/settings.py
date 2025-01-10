@@ -25,7 +25,7 @@ SECRET_KEY = 'v$u@2!qnk1%2b-7r^!s*^(qz1vwvk^ab#s7i2jjb@ixthq9_%w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','a9b2-2409-40d4-10c3-14e7-615f-5f84-87ae-96d5.ngrok-free']
 
 
 # Application definition
@@ -156,7 +156,7 @@ EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp-mail.outlook.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'mikksuthar@hotmail.com'
-EMAIL_HOST_PASSWORD = 'Mikk@Nikk'
+EMAIL_HOST_PASSWORD = 'Mksuthar@08'
 EMAIL_USE_TLS = True
 PASSWORD_RESET_TIMEOUT_DAYS = 1
 
